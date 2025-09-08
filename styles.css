@@ -507,7 +507,7 @@ body {
 }
 
 .footer-section {
-  margin: auto;
+  /* Base footer section styles */
 }
 
 .footer-title {
@@ -698,5 +698,21 @@ body {
 
   .features-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* About section responsive */
+  .about-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+
+  .highlights-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .highlights-grid .highlight-item:nth-child(4),
+  .highlights-grid .highlight-item:nth-child(5),
+  .highlights-grid .highlight-item:nth-child(6) {
+    grid-column: span 2;
   }
 }
