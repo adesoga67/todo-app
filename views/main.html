@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page - TodoWizard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <style>
+      .glass {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .gradient-text {
+        background: linear-gradient(to right, #d97706, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .shadow-soft {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4"
+  >
+    <div class="max-w-2xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-extrabold gradient-text mb-2">Todo App</h1>
+        <p class="text-gray-600 font-medium">
+          Stay organized and get things done
+        </p>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-4 mb-6">
+        <div class="glass rounded-lg p-4 shadow-soft">
+          <div class="text-2xl font-bold text-amber-600" id="total-count">
+            0
+          </div>
+          <div
+            class="text-xs text-gray-600 uppercase tracking-wide font-medium"
+          >
+            Total
+          </div>
+        </div>
+        <div class="glass rounded-lg p-4 shadow-soft">
+          <div class="text-2xl font-bold text-orange-600" id="active-count">
+            0
+          </div>
+          <div
+            class="text-xs text-gray-600 uppercase tracking-wide font-medium"
+          >
+            Active
+          </div>
+        </div>
+        <div class="glass rounded-lg p-4 shadow-soft">
+          <div class="text-2xl font-bold text-emerald-500" id="completed-count">
+            0
+          </div>
+          <div
+            class="text-xs text-gray-600 uppercase tracking-wide font-medium"
+          >
+            Completed
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Section -->
+      <div class="glass rounded-lg p-6 shadow-soft mb-6">
+        <div class="flex gap-3">
+          <input
+            type="text"
+            id="todo-input"
+            placeholder="What needs to be done?"
+            class="flex-1 px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-gray-800 bg-white/80 font-medium"
+          />
+          <button
+            id="add-btn"
+            class="px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:from-amber-600 hover:to-orange-600 transition-all duration-200 flex items-center gap-2 font-semibold shadow-soft"
+          >
+            <i data-lucide="plus" class="w-5 h-5"></i>
+            Add
+          </button>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="flex flex-wrap gap-2 mb-6">
+        <button
+          id="filter-all"
+          class="filter-btn px-4 py-2 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-soft"
+          data-filter="all"
+        >
+          <i data-lucide="filter" class="w-4 h-4"></i>
+          All (<span class="filter-count">0</span>)
+        </button>
+        <button
+          id="filter-active"
+          class="filter-btn px-4 py-2 rounded-lg font-medium transition-all duration-200 glass text-gray-800 hover:bg-white/60"
+          data-filter="active"
+        >
+          Active (<span class="filter-count">0</span>)
+        </button>
+        <button
+          id="filter-completed"
+          class="filter-btn px-4 py-2 rounded-lg font-medium transition-all duration-200 glass text-gray-800 hover:bg-white/60"
+          data-filter="completed"
+        >
+          Completed (<span class="filter-count">0</span>)
+        </button>
+        <button
+          id="clear-completed"
+          class="px-4 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors duration-200 border border-red-200 font-medium ml-auto hidden"
+        >
+          Clear Completed
+        </button>
+      </div>
+
+      <!-- Todo List -->
+      <div id="todo-list" class="space-y-3">
+        <!-- Empty state -->
+        <div
+          id="empty-state"
+          class="glass rounded-lg p-12 text-center shadow-soft"
+        >
+          <div class="text-gray-400 mb-4 font-medium">
+            No todos yet. Add one above!
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div
+        id="progress-section"
+        class="mt-8 glass rounded-lg p-4 shadow-soft hidden"
+      >
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-semibold text-gray-800">Progress</span>
+          <span class="text-sm text-gray-600 font-medium">
+            <span id="progress-text">0 of 0 completed</span>
+          </span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2">
+          <div
+            id="progress-bar"
+            class="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full transition-all duration-300"
+            style="width: 0%"
+          ></div>
+        </div>
+        <div class="text-center mt-2 text-sm text-gray-600 font-medium">
+          <span id="progress-percentage">0%</span> Complete
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Initialize Lucide icons
+      if (typeof lucide !== "undefined") {
+        lucide.createIcons();
+      }
+
+      // App state
+      let todos = [];
+      let currentFilter = "all";
+      let nextId = 1;
+
+      // DOM elements
+      const todoInput = document.getElementById("todo-input");
+      const addBtn = document.getElementById("add-btn");
+      const todoList = document.getElementById("todo-list");
+      const emptyState = document.getElementById("empty-state");
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const clearCompletedBtn = document.getElementById("clear-completed");
+      const progressSection = document.getElementById("progress-section");
+
+      // Add todo
+      function addTodo() {
+        const text = todoInput.value.trim();
+        if (text === "") return;
+
+        const todo = {
+          id: nextId++,
+          text: text,
+          completed: false,
+          createdAt: new Date().toLocaleString(),
+          category: "personal",
+        };
+
+        todos.push(todo);
+        todoInput.value = "";
+        renderTodos();
+        updateStats();
+      }
+
+      // Toggle todo completion
+      function toggleTodo(id) {
+        todos = todos.map((todo) =>
+          todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        );
+        renderTodos();
+        updateStats();
+      }
+
+      // Delete todo
+      function deleteTodo(id) {
+        todos = todos.filter((todo) => todo.id !== id);
+        renderTodos();
+        updateStats();
+      }
+
+      // Clear completed todos
+      function clearCompleted() {
+        todos = todos.filter((todo) => !todo.completed);
+        renderTodos();
+        updateStats();
+      }
+
+      // Filter todos
+      function getFilteredTodos() {
+        switch (currentFilter) {
+          case "active":
+            return todos.filter((todo) => !todo.completed);
+          case "completed":
+            return todos.filter((todo) => todo.completed);
+          default:
+            return todos;
+        }
+      }
+
+      // Get category colors
+      function getCategoryClass(category) {
+        switch (category) {
+          case "work":
+            return "bg-red-100 text-red-800";
+          case "personal":
+            return "bg-blue-100 text-blue-800";
+          case "learning":
+            return "bg-green-100 text-green-800";
+          default:
+            return "bg-gray-100 text-gray-800";
+        }
+      }
+
+      // Render todos
+      function renderTodos() {
+        const filteredTodos = getFilteredTodos();
+
+        if (filteredTodos.length === 0) {
+          let emptyMessage = "";
+          if (currentFilter === "all" && todos.length === 0) {
+            emptyMessage = "No todos yet. Add one above!";
+          } else if (
+            currentFilter === "active" &&
+            todos.filter((t) => !t.completed).length === 0 &&
+            todos.length > 0
+          ) {
+            emptyMessage = "No active todos. Great job!";
+          } else if (
+            currentFilter === "completed" &&
+            todos.filter((t) => t.completed).length === 0
+          ) {
+            emptyMessage = "No completed todos yet.";
+          }
+
+          todoList.innerHTML = `
+                    <div class="glass rounded-lg p-12 text-center shadow-soft">
+                        <div class="text-gray-400 mb-4 font-medium">${emptyMessage}</div>
+                    </div>
+                `;
+        } else {
+          todoList.innerHTML = filteredTodos
+            .map(
+              (todo) => `
+                    <div class="glass rounded-lg p-4 shadow-soft transition-all duration-200 hover:bg-white/60 ${
+                      todo.completed ? "opacity-75" : ""
+                    }">
+                        <div class="flex items-center gap-4">
+                            <button
+                                onclick="toggleTodo(${todo.id})"
+                                class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${
+                                  todo.completed
+                                    ? "bg-emerald-500 border-emerald-500 text-white"
+                                    : "border-gray-300 hover:border-emerald-500"
+                                }"
+                            >
+                                ${todo.completed ? "✓" : ""}
+                            </button>
+                            
+                            <div class="flex-1">
+                                <div class="font-semibold ${
+                                  todo.completed
+                                    ? "text-gray-400 line-through"
+                                    : "text-gray-800"
+                                }">
+                                    ${todo.text}
+                                </div>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <div class="text-xs text-gray-400 font-medium">
+                                        ${todo.createdAt}
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full ${getCategoryClass(
+                                      todo.category
+                                    )}">
+                                        ${todo.category}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button
+                                onclick="deleteTodo(${todo.id})"
+                                class="w-8 h-8 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors duration-200 flex items-center justify-center"
+                            >
+                                ×
+                            </button>
+                        </div>
+                    </div>
+                `
+            )
+            .join("");
+
+          // Reinitialize Lucide icons if available
+          if (typeof lucide !== "undefined") {
+            lucide.createIcons();
+          }
+        }
+      }
+
+      // Update stats
+      function updateStats() {
+        const totalTodos = todos.length;
+        const activeTodos = todos.filter((todo) => !todo.completed).length;
+        const completedTodos = todos.filter((todo) => todo.completed).length;
+
+        document.getElementById("total-count").textContent = totalTodos;
+        document.getElementById("active-count").textContent = activeTodos;
+        document.getElementById("completed-count").textContent = completedTodos;
+
+        // Update filter counts
+        document.querySelector("#filter-all .filter-count").textContent =
+          totalTodos;
+        document.querySelector("#filter-active .filter-count").textContent =
+          activeTodos;
+        document.querySelector("#filter-completed .filter-count").textContent =
+          completedTodos;
+
+        // Show/hide clear completed button
+        if (completedTodos > 0) {
+          clearCompletedBtn.classList.remove("hidden");
+        } else {
+          clearCompletedBtn.classList.add("hidden");
+        }
+
+        // Update progress bar
+        if (totalTodos > 0) {
+          const progressPercentage = Math.round(
+            (completedTodos / totalTodos) * 100
+          );
+          document.getElementById(
+            "progress-text"
+          ).textContent = `${completedTodos} of ${totalTodos} completed`;
+          document.getElementById(
+            "progress-bar"
+          ).style.width = `${progressPercentage}%`;
+          document.getElementById(
+            "progress-percentage"
+          ).textContent = `${progressPercentage}%`;
+          progressSection.classList.remove("hidden");
+        } else {
+          progressSection.classList.add("hidden");
+        }
+      }
+
+      // Set active filter
+      function setActiveFilter(filter) {
+        currentFilter = filter;
+
+        // Update button styles
+        filterBtns.forEach((btn) => {
+          if (btn.dataset.filter === filter) {
+            btn.className =
+              "filter-btn px-4 py-2 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-soft";
+          } else {
+            btn.className =
+              "filter-btn px-4 py-2 rounded-lg font-medium transition-all duration-200 glass text-gray-800 hover:bg-white/60";
+          }
+        });
+
+        renderTodos();
+      }
+
+      // Event listeners
+      addBtn.addEventListener("click", addTodo);
+      todoInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") addTodo();
+      });
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () =>
+          setActiveFilter(btn.dataset.filter)
+        );
+      });
+
+      clearCompletedBtn.addEventListener("click", clearCompleted);
+
+      // Initial render
+      renderTodos();
+      updateStats();
+
+      // Initialize icons after DOM is loaded
+      setTimeout(() => {
+        if (typeof lucide !== "undefined") {
+          lucide.createIcons();
+        }
+      }, 100);
+    </script>
+  </body>
+</html>
