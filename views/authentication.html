@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo Wizard - Sign In</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      .gradient-text {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      }
+
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .shape {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.1;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .shape:nth-child(1) {
+        width: 80px;
+        height: 80px;
+        background: #f59e0b;
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .shape:nth-child(2) {
+        width: 120px;
+        height: 120px;
+        background: #d97706;
+        top: 60%;
+        right: 20%;
+        animation-delay: 2s;
+      }
+
+      .shape:nth-child(3) {
+        width: 60px;
+        height: 60px;
+        background: #fbbf24;
+        bottom: 30%;
+        left: 15%;
+        animation-delay: 4s;
+      }
+
+      .shape:nth-child(4) {
+        width: 100px;
+        height: 100px;
+        background: #f59e0b;
+        top: 15%;
+        right: 15%;
+        animation-delay: 1s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .input-field {
+        transition: all 0.3s ease;
+      }
+
+      .input-field:focus {
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        border-color: #f59e0b;
+      }
+
+      .social-btn {
+        transition: all 0.3s ease;
+      }
+
+      .social-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .success-message {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+      }
+
+      .success-message.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .error-message {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+      }
+
+      .error-message.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 min-h-screen flex items-center justify-center p-4"
+  >
+    <!-- Floating Background Shapes -->
+    <div class="floating-shapes">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+
+    <!-- Auth Container -->
+    <div class="w-full max-w-md relative z-10">
+      <!-- Header -->
+      <div class="text-center mb-8 fade-in">
+        <h1 class="text-3xl font-extrabold gradient-text mb-2">Todo Wizard</h1>
+        <p class="text-gray-600">
+          Welcome back! Ready to boost your productivity?
+        </p>
+      </div>
+
+      <!-- Auth Card -->
+      <div
+        class="glass-effect rounded-2xl p-8 fade-in"
+        style="animation-delay: 0.2s"
+      >
+        <!-- Message Area -->
+        <div id="message-area"></div>
+
+        <!-- Tab Switcher -->
+        <div class="flex bg-gray-100 rounded-xl p-1 mb-6">
+          <button
+            id="signin-tab"
+            class="flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all duration-300 bg-white text-gray-800 shadow-sm"
+          >
+            Sign In
+          </button>
+          <button
+            id="signup-tab"
+            class="flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all duration-300 text-gray-600"
+          >
+            Sign Up
+          </button>
+        </div>
+
+        <!-- Sign In Form -->
+        <div id="signin-form">
+          <div class="space-y-4 mb-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Email Address</label
+              >
+              <input
+                id="signin-email"
+                type="email"
+                class="input-field w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none bg-white/80"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Password</label
+              >
+              <div class="relative">
+                <input
+                  id="signin-password"
+                  type="password"
+                  class="input-field w-full px-4 py-3 pr-10 border border-gray-300 rounded-xl focus:outline-none bg-white/80"
+                  placeholder="Enter your password"
+                  required
+                />
+                <button
+                  type="button"
+                  onclick="togglePassword('signin-password', this)"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-amber-600 transition"
+                  aria-label="Toggle password visibility"
+                >
+                  <!-- Eye icon -->
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.522 5 12 5s8.268 2.943
+                        9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Remember Me & Forgot Password -->
+          <div class="flex items-center justify-between mb-6">
+            <label class="flex items-center text-sm">
+              <input
+                id="remember-me"
+                type="checkbox"
+                class="rounded border-gray-300 text-amber-500 focus:ring-amber-500"
+              />
+              <span class="ml-2 text-gray-600">Remember me</span>
+            </label>
+            <a
+              href="#"
+              onclick="handleForgotPassword()"
+              class="text-sm text-amber-600 hover:text-amber-700 font-medium"
+              >Forgot password?</a
+            >
+          </div>
+
+          <!-- Sign In Button -->
+          <button
+            id="signin-btn"
+            onclick="handleSignIn()"
+            class="gradient-bg text-white w-full py-3 rounded-xl font-semibold hover:shadow-lg hover:shadow-amber-500/30 hover:-translate-y-0.5 transition-all duration-300 mb-6"
+          >
+            Sign In
+          </button>
+        </div>
+
+        <!-- Sign Up Form (Hidden by default) -->
+        <div id="signup-form" class="hidden">
+          <div class="space-y-4 mb-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Full Name</label
+              >
+              <input
+                id="signup-name"
+                type="text"
+                class="input-field w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none bg-white/80"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Email Address</label
+              >
+              <input
+                id="signup-email"
+                type="email"
+                class="input-field w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none bg-white/80"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Password</label
+              >
+              <div class="relative">
+                <input
+                  id="signup-password"
+                  type="password"
+                  class="input-field w-full px-4 py-3 pr-10 border border-gray-300 rounded-xl focus:outline-none bg-white/80"
+                  placeholder="Create a password"
+                  required
+                />
+                <button
+                  type="button"
+                  onclick="togglePassword('signup-password', this)"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-amber-600 transition"
+                  aria-label="Toggle password visibility"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.522 5 12 5s8.268 2.943
+                        9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Confirm Password</label
+              >
+              <div class="relative">
+                <input
+                  id="signup-confirm-password"
+                  type="password"
+                  class="input-field w-full px-4 py-3 pr-10 border border-gray-300 rounded-xl focus:outline-none bg-white/80"
+                  placeholder="Confirm your password"
+                  required
+                />
+                <button
+                  type="button"
+                  onclick="togglePassword('signup-confirm-password', this)"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-amber-600 transition"
+                  aria-label="Toggle password visibility"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.522 5 12 5s8.268 2.943
+                        9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terms Agreement -->
+          <div class="flex items-start mb-6">
+            <input
+              id="terms-checkbox"
+              type="checkbox"
+              class="mt-1 rounded border-gray-300 text-amber-500 focus:ring-amber-500"
+              required
+            />
+            <span class="ml-2 text-sm text-gray-600"
+              >I agree to the
+              <a
+                href="#"
+                onclick="showTerms()"
+                class="text-amber-600 hover:text-amber-700 font-medium"
+                >Terms of Service</a
+              >
+              and
+              <a
+                href="#"
+                onclick="showPrivacy()"
+                class="text-amber-600 hover:text-amber-700 font-medium"
+                >Privacy Policy</a
+              ></span
+            >
+          </div>
+
+          <!-- Sign Up Button -->
+          <button
+            id="signup-btn"
+            onclick="handleSignUp()"
+            class="gradient-bg text-white w-full py-3 rounded-xl font-semibold hover:shadow-lg hover:shadow-amber-500/30 hover:-translate-y-0.5 transition-all duration-300 mb-6"
+          >
+            Create Account
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="relative flex items-center justify-center mb-6">
+          <div class="border-t border-gray-300 w-full"></div>
+          <div class="bg-white px-4 text-sm text-gray-500">
+            or continue with
+          </div>
+        </div>
+
+        <!-- Social Login -->
+        <div class="space-y-3">
+          <button
+            onclick="handleGoogleAuth()"
+            class="social-btn w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-xl bg-white/80 hover:bg-white text-gray-700 font-medium"
+          >
+            <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24">
+              <path
+                fill="#4285f4"
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+              />
+              <path
+                fill="#34a853"
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              />
+              <path
+                fill="#fbbc05"
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+              />
+              <path
+                fill="#ea4335"
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              />
+            </svg>
+            Continue with Google
+          </button>
+
+          <button
+            onclick="handleAppleAuth()"
+            class="social-btn w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-xl bg-white/80 hover:bg-white text-gray-700 font-medium"
+          >
+            <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M16.365 1.43c0 1.14-.417 2.13-1.248 2.977-.995.997-2.19 1.58-3.487 1.48-.05-1.09.416-2.18 1.248-3.026.89-.896 2.244-1.55 3.487-1.43zm4.788 16.7c-.5 1.14-1.1 2.18-1.89 3.07-.62.7-1.24 1.35-2.14 1.36-.86.01-1.14-.44-2.13-.44-.99 0-1.3.43-2.13.45-.89.02-1.57-.73-2.19-1.42-1.2-1.35-2.12-3.45-2.13-5.51-.02-1.15.25-2.28.84-3.25.59-.97 1.42-1.74 2.59-1.75.8-.01 1.66.57 2.14.57.49 0 1.37-.71 2.31-.61.39.02 1.5.15 2.21 1.24-.06.04-1.32.77-1.3 2.31.02 1.85 1.64 2.46 1.66 2.46-.01.04-.16.6-.57 1.04z"
+              />
+            </svg>
+            Continue with Apple
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Toggle between Sign In and Sign Up
+      const signinTab = document.getElementById("signin-tab");
+      const signupTab = document.getElementById("signup-tab");
+      const signinForm = document.getElementById("signin-form");
+      const signupForm = document.getElementById("signup-form");
+
+      signinTab.addEventListener("click", () => {
+        signinTab.classList.add("bg-white", "text-gray-800", "shadow-sm");
+        signinTab.classList.remove("text-gray-600");
+        signupTab.classList.remove("bg-white", "text-gray-800", "shadow-sm");
+        signupTab.classList.add("text-gray-600");
+
+        signinForm.classList.remove("hidden");
+        signupForm.classList.add("hidden");
+      });
+
+      signupTab.addEventListener("click", () => {
+        signupTab.classList.add("bg-white", "text-gray-800", "shadow-sm");
+        signupTab.classList.remove("text-gray-600");
+        signinTab.classList.remove("bg-white", "text-gray-800", "shadow-sm");
+        signinTab.classList.add("text-gray-600");
+
+        signupForm.classList.remove("hidden");
+        signinForm.classList.add("hidden");
+      });
+
+      // Password Toggle Function
+      function togglePassword(inputId, button) {
+        const input = document.getElementById(inputId);
+        const isPassword = input.type === "password";
+        input.type = isPassword ? "text" : "password";
+
+        button.innerHTML = isPassword
+          ? // Eye-off icon
+            `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                 d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7
+                    a10.05 10.05 0 012.042-3.368M6.1 6.1A9.953 9.953 0 0112 5c4.478 0
+                    8.268 2.943 9.542 7a9.969 9.969 0 01-4.132 4.132M15 12a3 3 0
+                    11-6 0 3 3 0 016 0z" />
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                 d="M3 3l18 18" />
+             </svg>`
+          : // Eye icon
+            `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                 d="M2.458 12C3.732 7.943 7.522 5 12 5s8.268 2.943
+                    9.542 7c-1.274 4.057-5.064 7-9.542 7s-8.268-2.943-9.542-7z" />
+             </svg>`;
+      }
+
+      // Placeholder Functions
+      function handleSignIn() {
+        showMessage("Signed in successfully!", "success");
+      }
+
+      function handleSignUp() {
+        showMessage("Account created successfully!", "success");
+      }
+
+      function handleForgotPassword() {
+        showMessage("Password reset link sent!", "success");
+      }
+
+      function handleGoogleAuth() {
+        showMessage("Google sign-in successful!", "success");
+      }
+
+      function handleAppleAuth() {
+        showMessage("Apple sign-in successful!", "success");
+      }
+
+      function showTerms() {
+        showMessage("Terms of Service clicked.", "success");
+      }
+
+      function showPrivacy() {
+        showMessage("Privacy Policy clicked.", "success");
+      }
+
+      // Message Helper
+      function showMessage(message, type) {
+        const messageArea = document.getElementById("message-area");
+        const div = document.createElement("div");
+        div.className =
+          type === "success" ? "success-message show" : "error-message show";
+        div.textContent = message;
+
+        messageArea.innerHTML = "";
+        messageArea.appendChild(div);
+
+        setTimeout(() => {
+          div.classList.remove("show");
+          setTimeout(() => div.remove(), 300);
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
