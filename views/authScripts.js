@@ -2,6 +2,8 @@ const signinTab = document.getElementById("signin-tab");
 const signupTab = document.getElementById("signup-tab");
 const signinForm = document.getElementById("signin-form");
 const signupForm = document.getElementById("signup-form");
+const passwordInput = document.getElementById("password-input");
+const passwordToggler = document.getElementById("password-toggle");
 
 signinTab.addEventListener("click", () => {
   signinTab.classList.add("bg-white", "text-gray-800", "shadow-sm");
@@ -38,4 +40,14 @@ document.querySelectorAll(".input-field").forEach((input) => {
   input.addEventListener("blur", (e) => {
     e.target.parentElement.style.transform = "translateY(0)";
   });
+});
+
+passwordToggler.addEventListener("click", () => {
+  if (passwordToggler.textContent === "👁") {
+    passwordToggler.textContent = "👁‍🗨";
+    passwordInput.type = "text";
+  } else {
+    passwordToggler.textContent = "👁";
+    passwordInput.type = "password";
+  }
 });
