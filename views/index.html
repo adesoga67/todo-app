@@ -149,15 +149,12 @@
               </a>
             </div>
 
-            <button
-              class="gradient-bg text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-amber-500/40 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden"
+            <a
+              href="authentication.html"
+              class="gradient-bg text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-amber-500/40 hover:-translate-y-1 transition-all duration-300 inline-block text-center"
             >
-              <a
-                href="authentication.html"
-                class="gradient-bg text-white px-8 py-4 rounded-full..."
-                >Get Started</a
-              >
-            </button>
+              Get Started
+            </a>
           </div>
         </div>
       </div>
@@ -949,6 +946,346 @@
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section
+      id="contact"
+      class="py-20 lg:py-32 bg-gradient-to-b from-amber-50/80 to-white/50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Contact Header -->
+        <div class="text-center mb-16 lg:mb-20">
+          <h2
+            class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 lg:mb-6"
+          >
+            <span
+              class="bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent"
+            >
+              Get In Touch
+            </span>
+          </h2>
+          <p
+            class="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
+            Have questions, feedback, or need support? We'd love to hear from
+            you. Our team typically responds within 24 hours.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
+          <!-- Contact Form -->
+          <div class="glass-effect rounded-2xl p-8 lg:p-10">
+            <h3 class="text-2xl font-bold mb-6 text-gray-800">
+              Send us a message
+            </h3>
+            <form id="contactForm" class="space-y-6">
+              <!-- Name and Email Row -->
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    for="firstName"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    First Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    required
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 glass-effect"
+                    placeholder="Your first name"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="lastName"
+                    class="block text-sm font-medium text-gray-700 mb-2"
+                  >
+                    Last Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    required
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 glass-effect"
+                    placeholder="Your last name"
+                  />
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 glass-effect"
+                  placeholder="your.email@example.com"
+                />
+              </div>
+
+              <!-- Subject -->
+              <div>
+                <label
+                  for="subject"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Subject *
+                </label>
+                <select
+                  id="subject"
+                  required
+                  class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 glass-effect"
+                >
+                  <option value="">Select a topic</option>
+                  <option value="support">Technical Support</option>
+                  <option value="billing">Billing Question</option>
+                  <option value="feature">Feature Request</option>
+                  <option value="partnership">Partnership Inquiry</option>
+                  <option value="press">Press & Media</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label
+                  for="message"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Message *
+                </label>
+                <textarea
+                  id="message"
+                  required
+                  rows="5"
+                  class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 glass-effect resize-none"
+                  placeholder="Tell us how we can help you..."
+                ></textarea>
+              </div>
+
+              <!-- Newsletter Signup -->
+              <div class="flex items-start space-x-3">
+                <input
+                  type="checkbox"
+                  id="newsletter"
+                  class="mt-1 w-4 h-4 text-amber-500 border-gray-300 rounded focus:ring-amber-500"
+                />
+                <label for="newsletter" class="text-sm text-gray-600">
+                  I'd like to receive updates about new features and
+                  productivity tips via email.
+                </label>
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                class="w-full gradient-bg text-white px-6 py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-amber-500/40 hover:-translate-y-1 transition-all duration-300"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="space-y-8">
+            <!-- Direct Contact -->
+            <div class="glass-effect rounded-2xl p-6 lg:p-8">
+              <h3 class="text-xl font-bold mb-6 text-gray-800">
+                Contact Information
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white"
+                  >
+                    📧
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Email</h4>
+                    <p class="text-gray-600">hello@todowizard.com</p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white"
+                  >
+                    💬
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Live Chat</h4>
+                    <p class="text-gray-600">Available 9 AM - 6 PM PST</p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <div
+                    class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center text-white"
+                  >
+                    🏢
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Office</h4>
+                    <p class="text-gray-600">
+                      San Francisco, CA<br />New York, NY
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Support Categories -->
+            <div class="glass-effect rounded-2xl p-6 lg:p-8">
+              <h3 class="text-xl font-bold mb-6 text-gray-800">Quick Help</h3>
+              <div class="space-y-3">
+                <a
+                  href="#"
+                  class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/50 transition-colors duration-300 group"
+                >
+                  <div
+                    class="w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-500 rounded-lg flex items-center justify-center text-white text-sm"
+                  >
+                    ?
+                  </div>
+                  <span class="text-gray-700 group-hover:text-amber-600"
+                    >Help Center & FAQs</span
+                  >
+                </a>
+                <a
+                  href="#"
+                  class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/50 transition-colors duration-300 group"
+                >
+                  <div
+                    class="w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-500 rounded-lg flex items-center justify-center text-white text-sm"
+                  >
+                    📚
+                  </div>
+                  <span class="text-gray-700 group-hover:text-amber-600"
+                    >Documentation</span
+                  >
+                </a>
+                <a
+                  href="#"
+                  class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/50 transition-colors duration-300 group"
+                >
+                  <div
+                    class="w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-500 rounded-lg flex items-center justify-center text-white text-sm"
+                  >
+                    🎥
+                  </div>
+                  <span class="text-gray-700 group-hover:text-amber-600"
+                    >Video Tutorials</span
+                  >
+                </a>
+                <a
+                  href="#"
+                  class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/50 transition-colors duration-300 group"
+                >
+                  <div
+                    class="w-8 h-8 bg-gradient-to-r from-amber-400 to-orange-500 rounded-lg flex items-center justify-center text-white text-sm"
+                  >
+                    👥
+                  </div>
+                  <span class="text-gray-700 group-hover:text-amber-600"
+                    >Community Forum</span
+                  >
+                </a>
+              </div>
+            </div>
+
+            <!-- Response Time -->
+            <div class="glass-effect rounded-2xl p-6 lg:p-8 text-center">
+              <div
+                class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-4"
+              >
+                ⚡
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-gray-800">
+                Fast Response
+              </h3>
+              <p class="text-gray-600 text-sm">
+                Average response time: <strong>4 hours</strong><br />
+                Support available 24/7 for urgent issues
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Media & Alternative Contact -->
+        <div class="text-center">
+          <h3 class="text-2xl font-bold mb-8 text-gray-800">Follow Us</h3>
+          <div class="flex justify-center space-x-6 mb-8">
+            <a
+              href="#"
+              class="w-12 h-12 bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-white hover:scale-110 hover:shadow-lg transition-all duration-300"
+            >
+              <span class="text-lg">📘</span>
+            </a>
+            <a
+              href="#"
+              class="w-12 h-12 bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-white hover:scale-110 hover:shadow-lg transition-all duration-300"
+            >
+              <span class="text-lg">🐦</span>
+            </a>
+            <a
+              href="#"
+              class="w-12 h-12 bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-white hover:scale-110 hover:shadow-lg transition-all duration-300"
+            >
+              <span class="text-lg">💼</span>
+            </a>
+            <a
+              href="#"
+              class="w-12 h-12 bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-white hover:scale-110 hover:shadow-lg transition-all duration-300"
+            >
+              <span class="text-lg">📸</span>
+            </a>
+          </div>
+          <p class="text-gray-600">
+            Get the latest updates, productivity tips, and behind-the-scenes
+            content
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section
+      class="py-20 lg:py-32 text-center bg-gradient-to-r from-amber-100/80 to-orange-100/80"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+          <h2
+            class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 lg:mb-6"
+          >
+            <span
+              class="bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent"
+            >
+              Ready to Get More Done?
+            </span>
+          </h2>
+          <p
+            class="text-lg lg:text-xl text-gray-600 mb-8 lg:mb-12 leading-relaxed max-w-3xl mx-auto"
+          >
+            Join over 2 million users who have transformed their productivity
+            with Todo Wizard. Get started today - completely free.
+          </p>
+          <button
+            class="gradient-bg text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-amber-500/40 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+          >
+            <a
+              href="authentication.html"
+              class="gradient-bg text-white px-8 py-4 rounded-full..."
+              >Get Started</a
+            >
+          </button>
         </div>
       </div>
     </section>
