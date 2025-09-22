@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const navbarBg = navbar.querySelector(".glass-effect");
 
     if (window.scrollY > 50) {
-      navbarBg.style.background = "rgba(10, 10, 11, 0.95)";
+      navbarBg.style.background = "transparent";
       navbar.style.backdropFilter = "blur(20px)";
     } else {
       navbarBg.style.background = "rgba(255, 255, 255, 0.8)";

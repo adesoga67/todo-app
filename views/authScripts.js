@@ -42,6 +42,8 @@ document.querySelectorAll(".input-field").forEach((input) => {
   });
 });
 
+//password toggler
+
 passwordToggler.addEventListener("click", () => {
   if (passwordToggler.textContent === "👁") {
     passwordToggler.textContent = "👁‍🗨";
