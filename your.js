@@ -27,6 +27,24 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/auth", async (req, res) => {
+  try {
+    res.sendFile(process.cwd() + "/views/authentication.html");
+  } catch (error) {
+    console.error("Error fetching course:", error);
+    res.redirect("/");
+  }
+});
+
+app.get("/dash", async (req, res) => {
+  try {
+    res.sendFile(process.cwd() + "/views/main.html");
+  } catch (error) {
+    console.error("Error fetching course:", error);
+    res.redirect("/");
+  }
+});
+
 //app.use(favicon(__dirname + '/public/favicon.ico')); This server the logo
 
 app.listen(PORT, (error) => {
