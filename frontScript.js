@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const navbarBg = navbar.querySelector(".glass-effect");
 
     if (window.scrollY > 50) {
-      navbarBg.style.background = "rgba(10, 10, 11, 0.95)";
+      navbarBg.style.background = "transparent";
       navbar.style.backdropFilter = "blur(20px)";
     } else {
       navbarBg.style.background = "rgba(255, 255, 255, 0.8)";
@@ -116,25 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
       index * 0.1
     }s, transform 0.6s ease ${index * 0.1}s`;
     observer.observe(card);
-  });
-
-  // Enhanced feature card hover effects
-  document.querySelectorAll(".feature-card").forEach((card) => {
-    const originalTransform = card.style.transform || "translateY(0) scale(1)";
-
-    card.addEventListener("mouseenter", function () {
-      this.style.transform = "translateY(-8px) scale(1.02)";
-      this.style.background = "rgba(255, 255, 255, 0.9)";
-      this.style.borderColor = "rgba(245, 158, 11, 0.3)";
-      this.style.boxShadow = "0 32px 64px rgba(245, 158, 11, 0.2)";
-    });
-
-    card.addEventListener("mouseleave", function () {
-      this.style.transform = originalTransform;
-      this.style.background = "rgba(255, 255, 255, 0.8)";
-      this.style.borderColor = "rgba(0, 0, 0, 0.1)";
-      this.style.boxShadow = "0 8px 32px rgba(0, 0, 0, 0.1)";
-    });
   });
 
   // Add parallax effect to hero section
